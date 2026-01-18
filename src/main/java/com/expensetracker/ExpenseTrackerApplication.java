@@ -2,7 +2,6 @@ package com.expensetracker;
 
 import com.expensetracker.model.Category;
 import com.expensetracker.model.Expense;
-import com.expensetracker.repository.ExpenseRepository;
 import com.expensetracker.service.ExpenseService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,7 +30,7 @@ public class ExpenseTrackerApplication {
 			expenseService.addExpense(expense);
 
 			expenseService.getAllExpenses()
-					.forEach(e -> System.out.println("Saved Expense: " + e.getTitle()));
+				.forEach(e -> System.out.println("Saved Expense: " + e.getTitle()));
 		};
 	}
 

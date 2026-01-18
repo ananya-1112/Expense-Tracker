@@ -19,6 +19,11 @@ public class Expense {
     private LocalDate date;
 
     // getters and setters (we’ll improve this later)
+
+    public Long getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }
