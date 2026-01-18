@@ -3,6 +3,7 @@ package com.expensetracker;
 import com.expensetracker.model.Category;
 import com.expensetracker.model.Expense;
 import com.expensetracker.repository.ExpenseRepository;
+import com.expensetracker.service.ExpenseService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,18 +19,20 @@ public class ExpenseTrackerApplication {
 	}
 
 	@Bean
-	CommandLineRunner testRepository(ExpenseRepository expenseRepository) {
+	CommandLineRunner testService(ExpenseService expenseService) {
 		return args -> {
+
 			Expense expense = new Expense();
-			expense.setTitle("Lunch");
-			expense.setAmount(250.0);
+			expense.setTitle("Dinner");
+			expense.setAmount(350.0);
 			expense.setCategory(Category.ONLINEFOOD);
 			expense.setDate(LocalDate.now());
 
-			expenseRepository.save(expense);
+			expenseService.addExpense(expense);
 
-			expenseRepository.findAll()
+			expenseService.getAllExpenses()
 					.forEach(e -> System.out.println("Saved Expense: " + e.getTitle()));
 		};
 	}
+
 }
