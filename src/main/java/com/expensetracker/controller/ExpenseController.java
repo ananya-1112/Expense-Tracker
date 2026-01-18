@@ -2,6 +2,7 @@ package com.expensetracker.controller;
 
 import com.expensetracker.model.Expense;
 import com.expensetracker.service.ExpenseService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ExpenseController {
 
     // POST - add expense
     @PostMapping
-    public Expense addExpense(@RequestBody Expense expense) {  //@RequestBody converts JSON to Expense object
+    public Expense addExpense(@Valid @RequestBody Expense expense) {  //@RequestBody converts JSON to Expense object
         return expenseService.addExpense(expense);
     }
 
