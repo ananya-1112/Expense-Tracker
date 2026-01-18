@@ -1,5 +1,6 @@
 package com.expensetracker.service;
 
+import com.expensetracker.exception.ResourceNotFoundException;
 import com.expensetracker.model.Expense;
 import com.expensetracker.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Expense getExpenseById(Long id) {
-        return expenseRepository.findById(id).orElse(null);
+        return expenseRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Expense not found with id " + id));
     }
 
     @Override
