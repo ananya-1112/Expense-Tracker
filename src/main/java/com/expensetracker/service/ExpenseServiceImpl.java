@@ -5,6 +5,10 @@ import com.expensetracker.dto.ExpenseResponseDTO;
 import com.expensetracker.exception.ResourceNotFoundException;
 import com.expensetracker.model.Expense;
 import com.expensetracker.repository.ExpenseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,5 +60,20 @@ public class ExpenseServiceImpl implements ExpenseService {
         dto.setDate(expense.getDate());
         return dto;
     }
+
+    @Override
+    public Page<ExpenseResponseDTO> getAllExpenses(int page, int size) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("date").descending()
+        );
+
+        Page<Expense> expensePage = expenseRepository.findAll(pageable);
+
+        return expensePage.map(this::mapToResponse);  //changes map entity -> DTO
+    }
+
 
 }

@@ -5,6 +5,7 @@ import com.expensetracker.dto.ExpenseResponseDTO;
 import com.expensetracker.model.Expense;
 import com.expensetracker.service.ExpenseService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +29,11 @@ public class ExpenseController {
 
     // GET - get all expenses
     @GetMapping
-    public List<Expense> getAllExpenses() {
-        return expenseService.getAllExpenses();
+    public Page<ExpenseResponseDTO> getAllExpenses(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        return expenseService.getAllExpenses(page, size);
     }
 
     // GET - get expense by id
@@ -43,4 +47,7 @@ public class ExpenseController {
     public void deleteExpense(@PathVariable Long id) {
         expenseService.deleteExpense(id);
     }
+
+
+
 }
