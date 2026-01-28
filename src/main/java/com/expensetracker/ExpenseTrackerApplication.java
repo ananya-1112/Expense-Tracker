@@ -1,5 +1,6 @@
 package com.expensetracker;
 
+import com.expensetracker.dto.ExpenseRequestDTO;
 import com.expensetracker.model.Category;
 import com.expensetracker.model.Expense;
 import com.expensetracker.service.ExpenseService;
@@ -21,13 +22,13 @@ public class ExpenseTrackerApplication {
 	CommandLineRunner testService(ExpenseService expenseService) {
 		return args -> {
 
-			Expense expense = new Expense();
-			expense.setTitle("Dinner");
-			expense.setAmount(350.0);
-			expense.setCategory(Category.ONLINEFOOD);
-			expense.setDate(LocalDate.now());
+			ExpenseRequestDTO dto = new ExpenseRequestDTO();
+			dto.setTitle("Dinner");
+			dto.setAmount(350.0);
+			dto.setCategory(Category.ONLINEFOOD);
+			dto.setDate(LocalDate.now());
 
-			expenseService.addExpense(expense);
+			expenseService.addExpense(dto);
 
 			expenseService.getAllExpenses()
 				.forEach(e -> System.out.println("Saved Expense: " + e.getTitle()));

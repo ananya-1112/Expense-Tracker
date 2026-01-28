@@ -1,12 +1,14 @@
 package com.expensetracker.service;
 
+import com.expensetracker.dto.ExpenseRequestDTO;
+import com.expensetracker.dto.ExpenseResponseDTO;
 import com.expensetracker.model.Expense;
 
 import java.util.List;
 
 public interface ExpenseService {
 
-    Expense addExpense(Expense expense);
+    ExpenseResponseDTO addExpense(ExpenseRequestDTO dto);
 
     List<Expense> getAllExpenses();
 

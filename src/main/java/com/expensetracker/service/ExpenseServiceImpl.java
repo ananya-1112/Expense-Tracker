@@ -1,5 +1,7 @@
 package com.expensetracker.service;
 
+import com.expensetracker.dto.ExpenseRequestDTO;
+import com.expensetracker.dto.ExpenseResponseDTO;
 import com.expensetracker.exception.ResourceNotFoundException;
 import com.expensetracker.model.Expense;
 import com.expensetracker.repository.ExpenseRepository;
@@ -18,8 +20,16 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Expense addExpense(Expense expense) {
-        return expenseRepository.save(expense);
+    public ExpenseResponseDTO addExpense(ExpenseRequestDTO dto) {
+        Expense expense = new Expense();
+        expense.setTitle(dto.getTitle());
+        expense.setAmount(dto.getAmount());
+        expense.setCategory(dto.getCategory());
+        expense.setDate(dto.getDate());
+
+        Expense saved = expenseRepository.save(expense);
+
+        return mapToResponse(saved);
     }
 
     @Override
@@ -37,4 +47,14 @@ public class ExpenseServiceImpl implements ExpenseService {
     public void deleteExpense(Long id) {
         expenseRepository.deleteById(id);
     }
+
+    private ExpenseResponseDTO mapToResponse(Expense expense) {
+        ExpenseResponseDTO dto = new ExpenseResponseDTO();
+        dto.setId(expense.getId());
+        dto.setTitle(expense.getTitle());
+        dto.setAmount(expense.getAmount());
+        dto.setDate(expense.getDate());
+        return dto;
+    }
+
 }

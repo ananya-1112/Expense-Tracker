@@ -1,5 +1,7 @@
 package com.expensetracker.controller;
 
+import com.expensetracker.dto.ExpenseRequestDTO;
+import com.expensetracker.dto.ExpenseResponseDTO;
 import com.expensetracker.model.Expense;
 import com.expensetracker.service.ExpenseService;
 import jakarta.validation.Valid;
@@ -19,8 +21,9 @@ public class ExpenseController {
 
     // POST - add expense
     @PostMapping
-    public Expense addExpense(@Valid @RequestBody Expense expense) {  //@RequestBody converts JSON to Expense object
-        return expenseService.addExpense(expense);
+    public ExpenseResponseDTO addExpense(@Valid @RequestBody ExpenseRequestDTO dto) {  //@RequestBody converts JSON to Expense object
+        return expenseService.addExpense(dto);
+
     }
 
     // GET - get all expenses
